@@ -26,8 +26,8 @@ type Hood struct {
 	Population   int64   `json:"population" db:"population"`
 	Housing      int64   `json:"housing" db:"housing"`
 	Area         float64 `json:"area" db:"area"`
-	Crimes       int64   `json:"311" db:"311"`
-	Calls311     int64   `json:"311" db:"311"`
+	Crimes       int64   `json:"crimes" db:"crimes"`
+	Calls311     int64   `json:"calls" db:"311"`
 	Foreclosures int64   `json:"foreclosures" db:"foreclosures"`
 	Licenses     int64   `json:"licenses" db:"licenses"`
 	Score        float64 `json:"score" db:"score"`

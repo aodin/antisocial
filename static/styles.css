@@ -431,7 +431,9 @@ html {
   position: relative;
   min-height: 20px;
   border: 1px solid transparent;
-  background-color: #031330;
+  background-color: #222;
+  border-bottom: 1px solid #4355B6;
+  opacity: 0.8;
   color: #fefefe;
 }
 .container {
@@ -439,7 +441,11 @@ html {
   padding: 6px 12px;
 }
 .container h3 {
-  margin: 0;
+  margin: 0 30px 0 0;
+  display: inline;
+}
+.container i {
+  font-size: 14px;
 }
 
 body {
@@ -450,4 +456,70 @@ body {
 #map-canvas {
     height: 100%;
     width:100%;
+}
+
+#hoverbar {
+  max-width: 150px;
+  position: absolute;
+  z-index: 1000;
+  left:75px;
+  top:75px;
+  border: 1px solid #4355B6;
+  background-color: #222;
+  color: #fefefe;
+  text-align: center;
+  padding: 15px;
+  opacity: 0.8;
+}
+
+#hoverbar h1 {
+  margin: 2px 0;
+  font-size: 62px;
+}
+#hoverbar small {
+  font-size:24px;
+  font-weight:normal;
+}
+#hoverbar h3 {
+  margin: 5px 0;
+}
+#hoverbar table {
+  font-size: 14px;
+  font-weight: normal;
+}
+#hoverbar th {
+  text-align: left;
+  margin:2px 0;
+  font-weight: normal;
+}
+#hoverbar td {
+  text-align: right;
+  font-weight: normal;
+}
+#legend {
+  position: absolute;
+  min-height: 50px;
+  z-index: 1000;
+  top:12.5%;
+  right: 25px;
+  height:75%;
+  background-color: #031330;
+  opacity: 0.8;
+  padding:6px;
+  background: linear-gradient(hsl(240, 0%, 6%), hsl(240, 0%, 84%));
+  border: 1px solid #4355B6;
+}
+#legend #top {
+  position:absolute;
+  text-align:right;
+  top:-20px;
+  right:20px;
+  width: 100px;
+}
+#legend #bottom {
+  position:absolute;
+  right:20px;
+  width: 100px;
+  bottom: -20px;
+  text-align:right;
 }

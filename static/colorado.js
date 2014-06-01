@@ -21,41 +21,65 @@ var Hoods = Backbone.Collection.extend({
     url: '/api',
 });
 
+var hoverBar = "<h3><%- name %></h3><h1><%- rank %><small> / 78</small></h1><table><tr><th>Population:</th><td><%- population %></td></tr><tr><th>Crime:</th><td><%- crimes %></td></tr><tr><th>311 Calls:</th><td><%- calls %></td></tr><tr><th>Foreclosures:</th><td><%- foreclosures %></td></tr><tr><th>Liquor Licenses:</th><td><%- licenses %></td></tr><table>";
+
 // Pass the google map to the view
 var Map = Backbone.View.extend({
     el: '#map-canvas',
     initialize: function(options) {
-        console.log('init:', options)
         this.map = options.map;
         this.listenTo(this.collection, "reset", this.refresh);
+        this.on('hover', this.hover, this);
+        this.hoverbar = $('#hoverbar').hide();
     },
     refresh: function() {
-        _.each(this.collection.models, function(m, i) {
-
-            var rank = m.get('rank');
-
-            // var c = 'hsl(240, 0%, ' + (78 - rank) + '%)';
-            var c = 'hsl(240, 0%, ' + (rank + 5) + '%)';
-            console.log('c', c);
-
-            var hoodOptions = {
-              // "strokeColor": colors[i % colors.length],
-              "strokeColor": "#4355B6",
-              "strokeOpacity": 0.5,
-              "strokeWeight": 2,
-              "fillColor": c,
-              // "fillColor": colors[i % colors.length],
-              "fillOpacity": 0.7
-            }
-            // convert the geom string to geo json
-            var g = jQuery.parseJSON(m.get('geom'));
-            console.log('g:', g);
-
-            var geo = new GeoJSON(g, hoodOptions);
-            console.log(geo, geo.error);
-            geo.setMap(this.map);
+        _.each(this.collection.models, function(m) {
+            var h = new MapHood({model: m, map: this.map, t: this});
+            h.render();
         }, this);
     },
+    hover: function(m) {
+        var attrs = {
+            name: m.get('name'),
+            rank: m.get('rank'),
+            crimes: m.get('crimes'),
+            calls: m.get('calls'),
+            population: m.get('population'),
+            licenses: m.get('licenses'),
+            foreclosures: m.get('foreclosures'),
+        };
+        this.hoverbar.html(_.template(hoverBar, attrs)).show();
+    }
+});
+
+var MapHood = Backbone.View.extend({
+    initialize: function(options) {
+        this.map = options.map;
+        this.t = options.t;
+    },
+    render: function() {
+        var rank = this.model.get('rank');
+        var c = 'hsl(240, 0%, ' + (rank + 5) + '%)';
+        var hoodOptions = {
+          "strokeColor": "#4355B6",
+          "strokeOpacity": 0.5,
+          "strokeWeight": 2,
+          "fillColor": c,
+          "fillOpacity": 0.7
+        }
+        // convert the geom string to geo json
+        var g = jQuery.parseJSON(this.model.get('geom'));
+        var geo = new GeoJSON(g, hoodOptions);
+        var parent = this.t;
+        var model = this.model;
+        google.maps.event.addListener(geo, 'mouseover', function() {
+            // Trigger a new hover view
+            parent.trigger('hover', model);
+        });
+
+        geo.setMap(this.map);
+        return this;
+    }
 });
 
 
@@ -88,57 +112,12 @@ $(function() {
   var mapOptions = {
     // center: new google.maps.LatLng(39.739167, -104.984722),
     center: new google.maps.LatLng(39.719167, -104.944722),
-    zoom: 12,
+    zoom: 11,
     styles: styles
   };
   var map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
 
   var hoods = new Hoods();
   var m = new Map({collection: hoods, map: map});
-
-  // Create the bounds
-  // var sw = new google.maps.LatLng(39.74157597976737, -104.97832761370853);
-  // var ne = new google.maps.LatLng(39.72325901999735, -104.93176446521);
-  // var bounds = new google.maps.LatLngBounds(sw, ne);
-
-    hoods.fetch({reset: true});
+  hoods.fetch({reset: true});
 });
-
-
-
-// if (congress.error) {
-//   // Handle the error.
-//   console.log('ERROR:', congress.error);
-// } else {
-//   congress.setMap(map);
-// }
-
-// Focus on bounds
-// map.setCenter(origin);
-// map.fitBounds(bounds);
-
-
-// Load the zones
-// for (var i = 0, len = zones.length; i < len; i++) {
-
-// var zoneOptions = {
-//   "strokeColor": colors[i],
-//   "strokeOpacity": 0.75,
-//   "strokeWeight": 1,
-//   "fillColor": colors[i],
-//   "fillOpacity": 0.5
-// }
-
-// var zone = new GeoJSON(zones[i], zoneOptions);
-// if (zone.error) {
-// // Handle the error.
-//   console.log('ERROR:', zone.error);
-// } else {
-//   zone.setMap(map);
-// }
-// zone.setMap(map);
-// }
-
-// google.maps.event.addListener(map, 'center_changed', function() {
-// console.log(map.getBounds());
-// });
