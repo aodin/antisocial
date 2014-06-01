@@ -120,7 +120,14 @@ $(function() {
     // center: new google.maps.LatLng(39.739167, -104.984722),
     center: new google.maps.LatLng(39.719167, -104.944722),
     zoom: 11,
-    styles: styles
+    styles: styles,
+    mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+        position: google.maps.ControlPosition.RIGHT_BOTTOM
+    },
+    panControl: false,
+    zoomControl: false,
+    streetViewControl: false,
   };
   var map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
 

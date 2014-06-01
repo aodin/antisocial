@@ -428,9 +428,10 @@ html {
   height: 100%
 }
 .navbar {
-  position: relative;
+  position: absolute;
+  width:100%;
+  z-index:1000;
   min-height: 20px;
-  border: 1px solid transparent;
   background-color: #222;
   border-bottom: 1px solid #4355B6;
   opacity: 0.8;
@@ -539,7 +540,8 @@ body {
     font-size: 0.75em;
   }
   .navbar i {
-    font-size: 8px;
+    font-size: 10px;
+    display: block;
   }
   #hoverbar {
     width: 50%;
@@ -552,5 +554,11 @@ body {
   }
   #hoverbar table {
     display: none;
+  }
+  #hoverbar h3 {
+    font-size: 1em;
+  }
+  #hoverbar h1 {
+    font-size: 2.5em;
   }
 }
