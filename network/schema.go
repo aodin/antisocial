@@ -1,4 +1,4 @@
-package antisocial
+package network
 
 import (
 	. "github.com/aodin/aspect"

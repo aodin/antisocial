@@ -14,8 +14,8 @@ func main() {
 
 	// Connect to the database
 	db, err := aspect.Connect(
-		"postgres",
-		"host=localhost port=5432 dbname=antisocial user=postgres password=gotest",
+		c.Database.Driver,
+		c.Database.Credentials(),
 	)
 	if err != nil {
 		panic(err)

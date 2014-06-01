@@ -1,4 +1,4 @@
-package antisocial
+package network
 
 import (
 	"testing"
