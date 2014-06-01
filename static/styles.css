@@ -476,16 +476,24 @@ body {
   margin: 2px 0;
   font-size: 62px;
 }
+#hoverbar sup {
+  font-size: 50%;
+}
 #hoverbar small {
   font-size:24px;
   font-weight:normal;
 }
 #hoverbar h3 {
-  margin: 5px 0;
+  margin: 0;
+}
+#hoverbar h4 {
+  margin: 2px 0;
+  font-weight: normal;
 }
 #hoverbar table {
   font-size: 14px;
   font-weight: normal;
+  margin-top:10px;
 }
 #hoverbar th {
   text-align: left;
@@ -522,4 +530,27 @@ body {
   width: 100px;
   bottom: -20px;
   text-align:right;
+}
+
+/* Adjust titles for a small screen */
+@media (max-width: 480px) {
+  .navbar h3 {
+  margin: 0 10px 0 0;
+    font-size: 0.75em;
+  }
+  .navbar i {
+    font-size: 8px;
+  }
+  #hoverbar {
+    width: 50%;
+    position: absolute;
+    z-index: 1000;
+    left:25%;
+    top: auto;
+    bottom:5px;
+    padding: 15px;
+  }
+  #hoverbar table {
+    display: none;
+  }
 }

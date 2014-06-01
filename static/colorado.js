@@ -21,7 +21,9 @@ var Hoods = Backbone.Collection.extend({
     url: '/api',
 });
 
-var hoverBar = "<h3><%- name %></h3><h1><%- rank %><small> / 78</small></h1><table><tr><th>Population:</th><td><%- population %></td></tr><tr><th>Crime:</th><td><%- crimes %></td></tr><tr><th>311 Calls:</th><td><%- calls %></td></tr><tr><th>Foreclosures:</th><td><%- foreclosures %></td></tr><tr><th>Liquor Licenses:</th><td><%- licenses %></td></tr><table>";
+var endings = ["th", "st", "nd", "rd"];
+
+var hoverBar = "<h3><%- name %></h3><h1><%- rank %><sup><%- end %></h1><h4>of 78 neighborhoods</h4><table><tr><th>Population:</th><td><%- population %></td></tr><tr><th>Crimes:</th><td><%- crimes %></td></tr><tr><th>311 Calls:</th><td><%- calls %></td></tr><tr><th>Foreclosures:</th><td><%- foreclosures %></td></tr><tr><th>Liquor Licenses:</th><td><%- licenses %></td></tr><table>";
 
 // Pass the google map to the view
 var Map = Backbone.View.extend({
@@ -33,22 +35,27 @@ var Map = Backbone.View.extend({
         this.hoverbar = $('#hoverbar').hide();
     },
     refresh: function() {
-        _.each(this.collection.models, function(m) {
-            var h = new MapHood({model: m, map: this.map, t: this});
-            h.render();
-        }, this);
+      _.each(this.collection.models, function(m) {
+        var h = new MapHood({model: m, map: this.map, t: this});
+        h.render();
+      }, this);
     },
     hover: function(m) {
-        var attrs = {
-            name: m.get('name'),
-            rank: m.get('rank'),
-            crimes: m.get('crimes'),
-            calls: m.get('calls'),
-            population: m.get('population'),
-            licenses: m.get('licenses'),
-            foreclosures: m.get('foreclosures'),
-        };
-        this.hoverbar.html(_.template(hoverBar, attrs)).show();
+      // TODO Just use a blacklist to include geometry in the attrs
+      var r = m.get('rank');
+      var n = Number(String(r).slice(-1));
+      n = n > 3 ? 0 : n;
+      var attrs = {
+        name: m.get('name'),
+        rank: m.get('rank'),
+        end: endings[n],
+        crimes: m.get('crimes'),
+        calls: m.get('calls'),
+        population: m.get('population'),
+        licenses: m.get('licenses'),
+        foreclosures: m.get('foreclosures'),
+      };
+      this.hoverbar.html(_.template(hoverBar, attrs)).show();
     }
 });
 

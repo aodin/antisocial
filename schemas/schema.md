@@ -32,6 +32,8 @@
 
     Convert the multi-polygon to a polygon
 
+    SELECT UpdateGeometrySRID('statistical_neighborhoods', 'geom', 4326);
+
     ALTER TABLE "statistical_neighborhoods" ADD COLUMN "geo" geometry('POLYGON', 4326);
 
     UPDATE "statistical_neighborhoods" SET "geo" = st_geometryn(geom, 1);
