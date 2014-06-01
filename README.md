@@ -1,42 +1,7 @@
-Anti-Social Denver
-==================
+The Anti-Social Network
+=======================
 
-Aggregate by time of day and by lat/long "blocks"
-
-An event can have an "area of effect"
-
-### Time-based Events
-
-* Crime
-* 311
-* Special events
-
-### Day (6am to 2pm)
-
-* Schools
-* Restaurants
-* Traffic
-* Dispensaries
-* Parks
-
-### Evening (2pm to 10pm)
-
-* Restaurants
-* Bar / Clubs
-* Traffic
-* Parks 
-* Dispensaries
-
-
-### Night (10pm to 6am)
-
-* Bar / Clubs
-
-### Misc.
-
-* Property sales
-* foreclosures
-
+When you don't want to be part of something.
 
 
 Data Sources
@@ -46,7 +11,7 @@ Data Sources
 
 ### Misc. Events
 
-http://www.denvergov.org/doca/DenverOfficeofCulturalAffairs/Permitting/SpecialEvents/2011CalendarPermittedEvents/tabid/437302/Default.aspx
+* http://www.denvergov.org/doca/DenverOfficeofCulturalAffairs/Permitting/SpecialEvents/2011CalendarPermittedEvents/tabid/437302/Default.aspx
 
 
 ### Neighborhoods
